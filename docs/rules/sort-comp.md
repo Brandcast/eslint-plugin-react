@@ -8,10 +8,11 @@ When creating React components it is more convenient to always follow the same o
 
 With default configuration the following organisation must be followed:
 
-  1. static methods and properties
-  2. lifecycle methods: `displayName`, `propTypes`, `contextTypes`, `childContextTypes`, `mixins`, `statics`,`defaultProps`, `constructor`, `getDefaultProps`, `getInitialState`, `state`, `getChildContext`, `componentWillMount`, `componentDidMount`, `componentWillReceiveProps`, `shouldComponentUpdate`, `componentWillUpdate`, `componentDidUpdate`, `componentWillUnmount` (in this order).
-  3. custom methods
-  4. `render` method
+  1. Flow Annotations (only in ES6 classes)
+  2. static methods and properties
+  3. lifecycle methods: `displayName`, `propTypes`, `contextTypes`, `childContextTypes`, `mixins`, `statics`,`defaultProps`, `constructor`, `getDefaultProps`, `getInitialState`, `state`, `getChildContext`, `componentWillMount`, `componentDidMount`, `componentWillReceiveProps`, `shouldComponentUpdate`, `componentWillUpdate`, `componentDidUpdate`, `componentWillUnmount` (in this order).
+  4. custom methods
+  5. `render` method
 
 The following patterns are considered warnings:
 
@@ -54,6 +55,7 @@ The default configuration is:
 ```js
 {
   order: [
+    'type-annotations',
     'static-methods',
     'lifecycle',
     'everything-else',
@@ -85,6 +87,7 @@ The default configuration is:
 }
 ```
 
+* `type-annotations` is a special keyword that refers to annotation class properties
 * `static-methods` is a special keyword that refers to static class methods.
 * `lifecycle` is referring to the `lifecycle` group defined in `groups`.
 * `everything-else` is a special group that match all the methods that do not match any of the other groups.
@@ -97,6 +100,7 @@ For example, if you want to place your event handlers (`onClick`, `onSubmit`, et
 ```js
 "react/sort-comp": [1, {
   order: [
+    'type-annotations',
     'static-methods',
     'lifecycle',
     '/^on.+$/',
@@ -133,6 +137,7 @@ If you want to split your `render` method into smaller ones and keep them just b
 ```js
 "react/sort-comp": [1, {
   order: [
+    'type-annotations',
     'static-methods',
     'lifecycle',
     'everything-else',

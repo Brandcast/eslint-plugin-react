@@ -203,6 +203,31 @@ ruleTester.run('sort-comp', rule, {
       '});'
     ].join('\n'),
     parser: 'babel-eslint'
+  }, {
+    // Type Annotations should be first
+    code: [
+      'class Hello extends React.Component {',
+      '  props: { text: string };',
+      '  constructor() {}',
+      '  render() {',
+      '    return <div>{this.props.text}</div>;',
+      '  }',
+      '}'
+    ].join('\n'),
+    parser: 'babel-eslint'
+  }, {
+    // Properties with Type Annotations should not be at the top
+    code: [
+      'class Hello extends React.Component {',
+      '  props: { text: string };',
+      '  constructor() {}',
+      '  state: Object = {};',
+      '  render() {',
+      '    return <div>{this.props.text}</div>;',
+      '  }',
+      '}'
+    ].join('\n'),
+    parser: 'babel-eslint'
   }],
 
   invalid: [{
@@ -273,5 +298,32 @@ ruleTester.run('sort-comp', rule, {
     parser: 'babel-eslint',
     parserOptions: parserOptions,
     errors: [{message: 'render should be placed after displayName'}]
+  }, {
+    // Type Annotations should be first
+    code: [
+      'class Hello extends React.Component {',
+      '  constructor() {}',
+      '  props: { text: string };',
+      '  render() {',
+      '    return <div>{this.props.text}</div>;',
+      '  }',
+      '}'
+    ].join('\n'),
+    parser: 'babel-eslint',
+    errors: [{message: 'constructor should be placed after props'}]
+  }, {
+    // Properties with Type Annotations should not be at the top
+    code: [
+      'class Hello extends React.Component {',
+      '  props: { text: string };',
+      '  state: Object = {};',
+      '  constructor() {}',
+      '  render() {',
+      '    return <div>{this.props.text}</div>;',
+      '  }',
+      '}'
+    ].join('\n'),
+    parser: 'babel-eslint',
+    errors: [{message: 'state should be placed after constructor'}]
   }]
 });
